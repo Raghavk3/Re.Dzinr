@@ -1,0 +1,270 @@
+---
+	import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
+
+const { class: className } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+---
+
+<section
+    id="testimonials"
+    class:list={["section relative overflow-hidden", className]}>
+    <div class="relative z-10 col-span-12 flex w-full flex-col gap-12 py-12 lg:py-16">
+        <div
+            class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-2 md:px-10 lg:px-12"
+            data-xdata={`{
+                current: 0,
+                intervalId: null,
+                slides: [
+                    {
+                        logo: "NX",
+                        brandColor: "#3185ff",
+                        name: "NexusWeb Solutions",
+                        role: "SaaS Product Studio",
+                        quote: "Re.Dzinr completely reimagined our web presence. Sign-ups went up, bounce rates went down, and the brand finally feels like us."
+                    },
+                    {
+                        logo: "AR",
+                        brandColor: "#fc6f14",
+                        name: "Aura Retail",
+                        role: "D2C Lifestyle Brand",
+                        quote: "From moodboards to final build, the process felt effortless. The site is fast, bold and converts better than any campaign we've run."
+                    },
+                    {
+                        logo: "VC",
+                        brandColor: "#ffffff",
+                        name: "Verve Collective",
+                        role: "Creative Agency Partner",
+                        quote: "They think like strategists and execute like engineers. Re.Dzinr is our go-to partner for complex, design-heavy builds."
+                    },
+                    {
+                        logo: "IN",
+                        brandColor: "#3185ff",
+                        name: "Indus Fintech",
+                        role: "Financial Services",
+                        quote: "Pixel-perfect UI, strong UX flows and a serious performance boost. Our dashboards finally feel premium and trustworthy."
+                    },
+                    {
+                        logo: "ST",
+                        brandColor: "#fc6f14",
+                        name: "Studio Terra",
+                        role: "Architecture Studio",
+                        quote: "The new website feels like walking through our projects. Subtle motion, rich imagery and a layout that lets the work breathe."
+                    }
+                ],
+                next() {
+                    this.current = (this.current + 1) % this.slides.length;
+                },
+                prev() {
+                    this.current = (this.current - 1 + this.slides.length) % this.slides.length;
+                },
+                start() {
+                    if (this.intervalId) return;
+                    this.intervalId = setInterval(() => this.next(), 3000);
+                },
+                stop() {
+                    if (!this.intervalId) return;
+                    clearInterval(this.intervalId);
+                    this.intervalId = null;
+                }
+            }`}
+            x-init="start()"
+            data-xon.mouseenter="stop()"
+            data-xon.mouseleave="start()">
+            
+            <div class="max-w-md">
+                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-700">
+                    What clients say
+                </p>
+                <h2 class="mt-3 font-display text-3xl leading-tight text-zinc-900 md:text-4xl lg:text-5xl">
+                    Testimonials
+                </h2>
+                <p class="mt-4 text-sm text-zinc-600 md:text-base">
+                    Social proof from teams that shipped faster, converted better, and looked sharper with Re.Dzinr.
+                </p>
+
+                <div class="mt-8 flex items-center gap-4">
+                    <button
+                        type="button"
+                        class="group flex h-10 w-10 items-center justify-center rounded-full border border-zinc-700 bg-black/40 text-white transition hover:border-[#3185ff] hover:bg-[#3185ff]"
+                        data-cursor-hover
+                        data-xon.click="prev()">
+                        <svg class="h-4 w-4 transition group-hover:-translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+                    </button>
+                    <button
+                        type="button"
+                        class="group flex h-10 w-10 items-center justify-center rounded-full border border-zinc-700 bg-black/40 text-white transition hover:border-[#fc6f14] hover:bg-[#fc6f14]"
+                        data-cursor-hover
+                        data-xon.click="next()">
+                        <svg class="h-4 w-4 transition group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+                    </button>
+
+                    <div class="ml-4 flex items-center gap-1.5">
+                        <template data-xfor="(slide, index) in slides">
+                            <span
+                                class="inline-flex h-1 rounded-full transition-all duration-300"
+                                data-xbind.class="current === index ? 'bg-zinc-900 w-8' : 'bg-zinc-300 w-4'"></span>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full">
+                <div class="relative">
+                    <div class="relative w-full max-w-lg overflow-hidden rounded-2xl border border-zinc-200 bg-white/90 p-6 shadow-[0_10px_30px_rgba(15,23,42,0.12)]">
+                        <div class="relative flex flex-col gap-6 md:flex-row md:items-start">
+                            <div class="flex flex-row items-center gap-4 md:w-1/3 md:flex-col md:items-start">
+                                <div
+                                    class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-zinc-300 bg-white text-lg font-semibold tracking-tight shadow-sm transition-all duration-500"
+                                    data-xbind.style="`border-color: ${slides[current].brandColor}; box-shadow: 0 10px 25px ${slides[current].brandColor}33;`">
+                                    <span data-xtext="slides[current].logo"></span>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Client</p>
+                                    <p class="text-base font-semibold text-zinc-900" data-xtext="slides[current].name"></p>
+                                    <p class="text-xs text-zinc-500" data-xtext="slides[current].role"></p>
+                                </div>
+                            </div>
+
+                            <div class="md:w-2/3">
+                                <p class="font-display text-xl font-medium leading-relaxed text-zinc-800 md:text-2xl">
+                                    <span class="text-[#3185ff]">“</span>
+                                    <span data-xtext="slides[current].quote"></span>
+                                    <span class="text-[#fc6f14]">”</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+		<!-- Pricing -->
+		<div id="pricing" class="mx-auto max-w-6xl space-y-10 px-6 md:px-10 lg:px-12 lg:space-y-14">
+			<div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+				<div>
+					<p class="text-xs font-semibold uppercase tracking-[0.25em] text-zinc-700">
+						Pricing
+					</p>
+					<h3 class="mt-3 font-display text-3xl text-zinc-900 md:text-4xl lg:text-5xl">
+						Pick a plan that fits your next launch.
+					</h3>
+					<p class="mt-3 max-w-xl text-sm text-zinc-600 md:text-base">
+						Indicative ranges in INR so you can gauge where your project sits. We’ll fine‑tune scope,
+						timelines and deliverables together.
+					</p>
+				</div>
+
+				<a
+					class="inline-flex items-center justify-center rounded-full border border-white/20 bg-white text-sm font-semibold uppercase tracking-[0.18em] text-black shadow-[0_15px_40px_rgba(0,0,0,0.5)] transition hover:-translate-y-0.5 hover:border-[#3185ff] hover:bg-[#3185ff] hover:text-white px-6 py-3"
+					href={translatePath("/contact/")}
+					data-cursor-hover>
+					Book a call
+				</a>
+			</div>
+
+			<div class="grid gap-6 md:grid-cols-3">
+				<!-- Starter -->
+				<div
+					class="pricing-card group relative overflow-hidden rounded-2xl border border-zinc-800 bg-black/60 p-6 shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition hover:-translate-y-2 hover:border-[#3185ff]">
+					<div class="relative space-y-4">
+						<p class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">
+							Starter
+						</p>
+						<h4 class="text-2xl font-semibold">Launch Site</h4>
+						<p class="text-sm text-zinc-300">
+							Perfect for early‑stage brands that need a sharp, single‑site presence to launch fast.
+						</p>
+						<p class="mt-4 text-3xl font-semibold">
+							<span class="text-base align-top text-zinc-400">From</span> ₹75,000+
+						</p>
+						<ul class="mt-4 space-y-2 text-sm text-zinc-200">
+							<li>• Up to 4 custom pages</li>
+							<li>• Responsive design & basic animations</li>
+							<li>• SEO-ready structure</li>
+							<li>• Handover & launch support</li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Growth -->
+				<div
+					class="pricing-card group relative overflow-hidden rounded-2xl border border-[#3185ff] bg-[#0a1a2f]/90 p-6 shadow-[0_16px_45px_rgba(0,0,0,0.45)] transition hover:-translate-y-3">
+					<div class="relative space-y-4">
+						<p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/90">
+							<span class="h-5 w-5 rounded-full bg-white/20 text-center text-[10px] leading-5 text-white">★</span>
+							Most popular
+						</p>
+						<h4 class="text-2xl font-semibold text-white">Growth Experience</h4>
+						<p class="text-sm text-white/90">
+							For growing brands that need storytelling, interactions and performance baked in.
+						</p>
+						<p class="mt-4 text-3xl font-semibold text-white">
+							<span class="text-base align-top text-white/70">From</span> ₹1,75,000+
+						</p>
+						<ul class="mt-4 space-y-2 text-sm text-white/90">
+							<li>• 6–10 custom pages & component system</li>
+							<li>• Advanced motion & micro‑interactions</li>
+							<li>• Conversion‑focused UX & on‑page SEO</li>
+							<li>• Launch support & 2–4 weeks of iterations</li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Partner -->
+				<div
+					class="pricing-card group relative overflow-hidden rounded-2xl border border-zinc-800 bg-black/70 p-6 shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition hover:-translate-y-2 hover:border-[#fc6f14]">
+					<div class="relative space-y-4">
+						<p class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">
+							Partner
+						</p>
+						<h4 class="text-2xl font-semibold">Retainer & Product</h4>
+						<p class="text-sm text-zinc-300">
+							Ongoing design‑dev partnership for teams shipping features, campaigns or multiple brands.
+						</p>
+						<p class="mt-4 text-3xl font-semibold">
+							<span class="text-base align-top text-zinc-400">From</span> ₹2,50,000+/month
+						</p>
+						<ul class="mt-4 space-y-2 text-sm text-zinc-200">
+							<li>• Rolling design & development sprints</li>
+							<li>• Landing pages, experiments & AB tests</li>
+							<li>• Priority support & strategy check‑ins</li>
+							<li>• Flexible scope to match your roadmap</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	function init() {
+		const cards = gsap.utils.toArray<HTMLElement>(".pricing-card");
+
+		cards.forEach((card, index) => {
+			gsap.from(card, {
+				y: 30,
+				opacity: 0,
+				duration: 0.5,
+				ease: "power2.out",
+				delay: 0.08 * index,
+				scrollTrigger: {
+					trigger: card,
+					start: "top 80%",
+					toggleActions: "play none none reverse",
+				},
+			});
+		});
+	}
+
+	document.removeEventListener("DOMContentLoaded", init);
+	document.addEventListener("DOMContentLoaded", init);
+</script>
