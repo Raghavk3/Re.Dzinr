@@ -1,6 +1,8 @@
 ---
 import LinkBlend from "@components/global/LinkBlend.astro";
 import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
+import BrandsCarousel from "@components/BrandsCarousel.astro";
+
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -44,6 +46,7 @@ const translatePath = useTranslatedPath(lang);
 		</div>
 	</div>
 </section>
+<BrandsCarousel />
 
 <style>
 	.hero {

@@ -8,35 +8,100 @@ const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
 
-<!-- The best thing? It's all in one -->
-<div id="smooth-wrapper" class:list={["section tagline-section relative bg-zinc-900 text-white", className]}>
+<div
+	id="smooth-wrapper"
+	class:list={["section tagline-section relative bg-zinc-900 text-white", className]}
+>
+	<!-- Arrow -->
 	<div class="tagline-arrows">
 		<svg
-			stroke-linecap="round"
-			class="h-[15rem] w-[15rem] rotate-45 md:w-[20rem] md:rotate-0 lg:w-[25rem]"
-			stroke-linejoin="round"
-			viewBox="0 0 550 330">
+			class="h-[15rem] md:h-[18rem] lg:h-[22rem]"
+			viewBox="0 0 550 330"
+			fill="none"
+		>
 			<path
 				id="tagline-arrow-path"
-				fill="none"
-				stroke="#fff"
-				stroke-width="10"
 				d="M8.5,7.8C46.3,67,121.7,185.5,265.5,185.9c42.8,0.1,120.5-55.9-25.2-120.3
-	C79-5.8,177.6,164.1,222.3,207.7c59.1,49.9,83.8,62.1,162.6,96.8">
-			</path>
-			<path class="opacity-0" id="tagline-arrow" stroke="white" stroke-width="12" d="M465.7 172.9l47.1 6-29.8 33.3-17.3-39.3z"></path>
+				C79-5.8,177.6,164.1,222.3,207.7c59.1,49.9,83.8,62.1,162.6,96.8"
+				stroke="#fff"
+				stroke-width="12"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			/>
+			<!-- Arrow head -->
+			<path
+				id="tagline-arrow"
+				d="M0 0 L-22 32 L22 32 Z"
+				fill="#fff"
+				opacity="0"
+			/>
 		</svg>
 	</div>
+
+	<!-- Text -->
 	<div class="text col-span-12 flex justify-center font-light">
-		<p id="services-tagline" class="max-w-5xl text-center text-4xl md:text-5xl lg:text-7xl">
+		<p
+			id="services-tagline"
+			class="max-w-5xl text-center text-4xl md:text-5xl lg:text-7xl"
+		>
 			{t("tagline")}
 		</p>
 	</div>
 </div>
 
 <style>
+	.tagline-section {
+		overflow: visible;
+		padding-bottom: clamp(2rem, 5vw, 4rem);
+	}
+
+	.tagline-arrows {
+		position: absolute;
+		top: -8rem;
+		left: 0;
+		width: 100%;
+		pointer-events: none;
+		z-index: 0;
+		display: flex;
+		justify-content: flex-start;
+		padding-left: clamp(1.5rem, 6vw, 6rem);
+	}
+
+	@media (min-width: 768px) {
+		.tagline-arrows {
+			top: -10rem;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.tagline-arrows {
+			top: -12rem;
+		}
+	}
+
+	.tagline-arrows svg {
+		max-width: 420px;
+		height: auto;
+	}
+
+	.tagline-section .text {
+		position: relative;
+		z-index: 1;
+		padding-top: 6rem;
+	}
+
+	@media (min-width: 768px) {
+		.tagline-section .text {
+			padding-top: 8rem;
+		}
+	}
+
 	#services-tagline {
-		background: linear-gradient(to right, rgb(255, 255, 255) 50%, rgb(37, 37, 37) 50%);
+		background: linear-gradient(
+			to right,
+			rgb(255, 255, 255) 50%,
+			rgb(37, 37, 37) 50%
+		);
 		background-size: 200% 100%;
 		background-position-x: 100%;
 		color: transparent;
@@ -53,43 +118,39 @@ const translatePath = useTranslatedPath(lang);
 	gsap.registerPlugin(ScrollTrigger);
 
 	function init() {
-		const linePath = document.querySelector("#tagline-arrow-path") as SVGPathElement | null;
+		const linePath = document.querySelector("#tagline-arrow-path");
 		const arrow = document.querySelector("#tagline-arrow");
 		const tagline = document.querySelector("#services-tagline");
 
 		if (!linePath || !arrow || !tagline) return;
 
-		// Approximate the old DrawSVG effect using stroke-dashoffset (no premium plugin)
-		const length = linePath.getTotalLength();
-		linePath.style.strokeDasharray = String(length);
-		linePath.style.strokeDashoffset = String(length);
+		const pathLength = linePath.getTotalLength();
+		const endPoint = linePath.getPointAtLength(pathLength);
+
+		// Attach arrowhead cleanly at the end of the path
+		arrow.setAttribute(
+			"transform",
+			`translate(${endPoint.x}, ${endPoint.y}) rotate(90)`
+		);
+
+		// Draw effect without DrawSVG plugin
+		linePath.style.strokeDasharray = pathLength;
+		linePath.style.strokeDashoffset = pathLength;
 
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: ".tagline-section",
 				start: "top bottom",
 				end: "center center",
-				markers: false,
 				scrub: 1,
 			},
 		});
 
 		tl.to(linePath, { strokeDashoffset: 0 }, 0)
-			.fromTo(
-				arrow,
-				{ opacity: 0, y: 20 },
-				{ opacity: 1, y: 0 },
-				0.2,
-			)
-			.to(
-				tagline,
-				{
-					backgroundPositionX: 0,
-				},
-				0.4,
-			);
+			.to(arrow, { opacity: 1, duration: 0.2 }, 0.15)
+			.to(tagline, { backgroundPositionX: 0 }, 0.35);
 	}
 
-	document.removeEventListener("DOMContentLoaded", init); // astro:page-load
-	document.addEventListener("DOMContentLoaded", init); // astro:page-load
+	document.removeEventListener("DOMContentLoaded", init);
+	document.addEventListener("DOMContentLoaded", init);
 </script>

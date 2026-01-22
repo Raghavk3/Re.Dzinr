@@ -1,4 +1,5 @@
 ---
+import { Fragment } from "astro/jsx-runtime";
 import { Image } from "astro:assets";
 import advertisingSvg from "@assets/images/services/advertising.svg?raw";
 import designSvg from "@assets/images/services/creative-designer-doing-multitasking.svg?raw";
@@ -49,9 +50,9 @@ const points = [
 			{points.map(() => <div class="indicator w-full grow bg-[#333333]" />)}
 		</div>
 		{
-			points.map(({ title, content, image }) => (
+			points.map(({ title, content, image }, index) => (
 				<div class="point flex h-screen w-full flex-col items-center justify-center gap-x-20 gap-y-12 p-16 pr-0 md:flex-row lg:gap-x-40">
-					<div class="hidden w-full max-w-80 lg:block">
+					<div class:list={["hidden w-full max-w-80 lg:block", index === 4 ? "advertising-svg-container" : ""]}>
 						<Fragment set:html={image} class="" />
 					</div>
 					<article class="flex flex-col gap-14">
@@ -63,6 +64,13 @@ const points = [
 		}
 	</div>
 </section>
+
+<style>
+	.advertising-svg-container svg {
+		transform: scale(0.75);
+		transform-origin: center;
+	}
+</style>
 
 <script>
 	import { gsap } from "gsap";

@@ -1,0 +1,81 @@
+---
+const brands = [
+	{ name: "GNI", logo: "/Gurunanak Institutes.png" },
+	{ name: "Indicon", logo: "/IEEE INDICON.png" },
+	{ name: "CMRIT MUN", logo: "/CMRIT MUN.png" },
+	{ name: "Youth Force", logo: "/Youth Force.png" },
+	{ name: "RBU", logo: "/RBU.png" },
+	{ name: "Mansa", logo: "/MANSA.png" },
+	{ name: "MINISO", logo: "/MINISO.png" },
+	{ name: "Med", logo: "/Shree Lakshmi Pharmacy.png" },
+	{ name: "Alt World", logo: "/Alt World.png" },
+];
+---
+
+<section class="brands-wrapper">
+	<h2 class="brands-title">
+		Brands we’ve collaborated with
+	</h2>
+
+	<div class="marquee">
+		<div class="marquee-track">
+			{brands.map((b) => (
+				<img src={b.logo} alt={b.name} loading="lazy" />
+			))}
+			{brands.map((b) => (
+				<img src={b.logo} alt={b.name} loading="lazy" />
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.brands-wrapper {
+		width: 100vw;
+		overflow: hidden;
+		padding: 3rem 0;
+		text-align: center;
+		position: relative;
+	}
+
+	.brands-title {
+		font-size: 1.75rem;
+		font-weight: 700;
+		margin-bottom: 2rem;
+	}
+
+	.marquee {
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.marquee-track {
+		display: flex;
+		align-items: center;
+		gap: 5rem;
+		width: max-content;
+		animation: marquee 30s linear infinite;
+		will-change: transform;
+	}
+
+	.marquee-track img {
+		height: 80px;
+		object-fit: contain;
+		opacity: 0.85;
+		transition: transform 0.3s ease, opacity 0.3s ease;
+	}
+
+	.marquee-track img:hover {
+		transform: scale(1.05);
+		opacity: 1;
+	}
+
+	@keyframes marquee {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(-50%);
+		}
+	}
+</style>

@@ -249,25 +249,28 @@ const { pathname } = Astro.url;
 		const isTouchDevice = window.matchMedia("(hover: none)").matches;
 
 		if (window.innerWidth >= 768 && !isTouchDevice) {
-			function expandMenu() {
-				menuCollapseTl.reverse();
-				pageLinksUl?.classList.remove("collapsed");
-				document.querySelector("header .navigation")?.classList.remove("collapsed");
-				menuCollapsed = false;
-			}
+			const navContainer = document.querySelector(".nav-container") as HTMLElement;
+			const navigation = document.querySelector(".navigation") as HTMLElement;
 
-			function collapseMenu() {
-				if (window.scrollY > 200) {
-					menuCollapseTl.play();
-					pageLinksUl?.classList.add("collapsed");
-					document.querySelector("header .navigation")?.classList.add("collapsed");
-					menuCollapsed = true;
+			if (!navContainer || !navigation) return;
+
+			function expandMenu() {
+				if (menuCollapsed) {
+					menuCollapseTl.reverse();
+					pageLinksUl?.classList.remove("collapsed");
+					navigation?.classList.remove("collapsed");
+					menuCollapsed = false;
 				}
 			}
 
-			collapseMenu();
-
-			const navContainer = document.querySelector(".nav-container") as HTMLElement;
+			function collapseMenu() {
+				if (!menuCollapsed) {
+					menuCollapseTl.play();
+					pageLinksUl?.classList.add("collapsed");
+					navigation?.classList.add("collapsed");
+					menuCollapsed = true;
+				}
+			}
 
 			function mouseEnterHandler() {
 				isHoveringMenu = true;
@@ -276,25 +279,37 @@ const { pathname } = Astro.url;
 
 			function mouseLeaveHandler() {
 				isHoveringMenu = false;
-				collapseMenu();
-			}
-
-			function handleScroll() {
-				if (window.scrollY > 200 && !isHoveringMenu && !menuCollapsed) {
+				// Only collapse if scrolled down
+				if (window.scrollY > 200) {
 					collapseMenu();
-				} else if (window.scrollY <= 200 && menuCollapsed) {
-					expandMenu();
 				}
 			}
 
-			navContainer?.removeEventListener("mouseenter", mouseEnterHandler);
-			navContainer?.addEventListener("mouseenter", mouseEnterHandler);
+			function handleScroll() {
+				if (!isHoveringMenu) {
+					if (window.scrollY > 200) {
+						if (!menuCollapsed) {
+							collapseMenu();
+						}
+					} else {
+						if (menuCollapsed) {
+							expandMenu();
+						}
+					}
+				}
+			}
 
-			navContainer?.removeEventListener("mouseleave", mouseLeaveHandler);
-			navContainer?.addEventListener("mouseleave", mouseLeaveHandler);
+			// Set initial state
+			handleScroll();
 
-			window?.removeEventListener("scroll", handleScroll);
-			window?.addEventListener("scroll", handleScroll);
+			// Add hover listeners
+			navContainer.addEventListener("mouseenter", mouseEnterHandler);
+			navContainer.addEventListener("mouseleave", mouseLeaveHandler);
+			navigation.addEventListener("mouseenter", mouseEnterHandler);
+			navigation.addEventListener("mouseleave", mouseLeaveHandler);
+
+			// Add scroll listener
+			window.addEventListener("scroll", handleScroll, { passive: true });
 		}
 	}
 
