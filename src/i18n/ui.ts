@@ -87,6 +87,12 @@ export const ui = {
 		"footer.newsletter": "Subscribe to",
 		"footer.newsletter2": "our newsletter",
 		"footer.yourmail": "Your email",
+		"about.title": "About Us",
+"about.subtitle": "The people behind Re.Dzinr",
+"about.readmore": "Read more",
+"about.back": "Back to team",
+"about.teamMember": "Team Member",
+"about.expertise": "Expertise",
 	},
 	it: {
 		or: "o",

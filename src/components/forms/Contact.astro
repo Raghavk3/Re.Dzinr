@@ -1,20 +1,20 @@
 ---
 import Title from "@components/global/Title.astro";
-
 import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
-
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
-
 <section class="isolate px-6 py-24 sm:py-32 lg:px-8">
 	<div class="absolute inset-x-0 top-[-10rem] transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">
 		<div class="gradient-element"></div>
 	</div>
 	<div class="mx-auto">
 		<Title class="pb-10 pt-20 uppercase" title={t("contact.title")} subtitle={t("contact.subtitle")} />
-		<form data-static-form-name="contact" class="mx-auto max-w-2xl pt-12 lg:pt-20">
+		<form
+			method="POST"
+			action="/api/contact"
+			class="mx-auto max-w-2xl pt-12 lg:pt-20">
 			<div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
 				<div class="form-field sm:col-span-2">
 					<label for="name" class="form-label">{t("contact.name")}*</label>
@@ -51,7 +51,6 @@ const translatePath = useTranslatedPath(lang);
 		</form>
 	</div>
 </section>
-
 <style>
 	.gradient-element {
 		@apply relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem];
@@ -74,15 +73,12 @@ const translatePath = useTranslatedPath(lang);
 			74.1% 44.1%
 		);
 	}
-
 	.form-field {
 		@apply block;
 	}
-
 	.form-label {
 		@apply flex pl-1 text-sm font-semibold leading-6 text-gray-900;
 	}
-
 	input,
 	textarea {
 		@apply pointer-events-auto relative m-0 w-full cursor-text rounded-lg border-0 bg-slate-200 px-5 py-2 text-xl font-normal not-italic outline-none placeholder:text-gray-400 focus:ring-slate-500;

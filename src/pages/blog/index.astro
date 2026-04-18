@@ -1,35 +1,26 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Authors from "@components/blog/Authors.astro";
 import type { AstroSeoProps } from "@astrolib/seo";
-import Articles from "@components/blog/Articles.astro";
 
 const seo: AstroSeoProps = {
-	title: "Re.Dzinr Blog: Insights and updates in web design, development and SEO",
+	title: "About Us | Re.Dzinr",
 	description:
-		"Explore the Re.Dzinr Blog for the latest trends, tips, and insights in web design, development and SEO. Stay updated with our innovative digital solutions.",
+		"Meet the founders of Re.Dzinr — built by two B.Tech students from CMR Institute of Technology, Hyderabad, driven by design, code, and a shared vision.",
 	canonical: "https://redzinr.in/blog/",
 	openGraph: {
 		url: "https://redzinr.in/blog",
-		title: "Re.Dzinr Blog: Insights and updates in web design, development and SEO",
+		title: "About Us | Re.Dzinr",
 		description:
-			"Stay informed with the latest in web design and SEO on the Re.Dzinr Blog. Expert advice, tips, and industry insights await you.",
+			"Meet Jatin and Raghava — the duo behind Re.Dzinr. Design meets development.",
 		images: [
 			{
 				url: "https://redzinr.in/opengraph/social-og.jpg",
 				width: 1200,
 				height: 630,
-				alt: "Social open graph image of Re.Dzinr Blog",
+				alt: "Re.Dzinr About Us",
 				type: "image/jpeg",
 			},
-			{
-				url: "https://redzinr.in/opengraph/twitter-og.jpg",
-				width: 4096,
-				height: 4096,
-				alt: "Twitter open graph image of Re.Dzinr Blog",
-				type: "image/jpeg",
-			},
-			{ url: "https://redzinr.in/opengraph/social-og.jpg" },
-			{ url: "https://redzinr.in/opengraph/twitter-og.jpg" },
 		],
 		site_name: "Re.Dzinr",
 	},
@@ -42,5 +33,5 @@ const seo: AstroSeoProps = {
 ---
 
 <BaseLayout seo={seo}>
-	<Articles />
+	<Authors />
 </BaseLayout>

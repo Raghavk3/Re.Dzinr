@@ -35,7 +35,7 @@ const translatePath = useTranslatedPath(lang);
                         logo: "VR",
                         brandColor: "#ffffff",
                         name: "Vinil Reddy",
-                        role: "Licensee - South India’s Largest CSR Summit",
+                        role: "Licensee - South India's Largest CSR Summit",
                         quote: "They think like strategists and execute like engineers. Re.Dzinr is our go-to partner for complex, design-heavy builds."
                     },
                     {
@@ -129,9 +129,9 @@ const translatePath = useTranslatedPath(lang);
 
                             <div class="md:w-2/3">
                                 <p class="font-display text-xl font-medium leading-relaxed text-zinc-800 md:text-2xl">
-                                    <span class="text-[#3185ff]">“</span>
+                                    <span class="text-[#3185ff]">"</span>
                                     <span data-xtext="slides[current].quote"></span>
-                                    <span class="text-[#fc6f14]">”</span>
+                                    <span class="text-[#fc6f14]">"</span>
                                 </p>
                             </div>
                         </div>
@@ -139,105 +139,80 @@ const translatePath = useTranslatedPath(lang);
                 </div>
             </div>
         </div>
+
+        <!-- ── Pricing CTA ── replaces the 3-card grid ──────────────────── -->
+        <div id="pricing" class="mx-auto max-w-6xl w-full px-6 md:px-10 lg:px-12 mt-6 lg:mt-10">
+
+            <!-- top divider matching original section style -->
+            <div class="border-t border-zinc-800 pt-12 lg:pt-16">
+
+                <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 items-center">
+
+                    <!-- Left: copy -->
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-zinc-700">
+                            Pricing
+                        </p>
+                        <h3 class="mt-3 font-display text-3xl text-zinc-400 md:text-4xl lg:text-5xl">
+                            Every project is<br />
+                            <span class="text-[#3185ff] italic">priced for fit.</span>
+                        </h3>
+                        <p class="mt-4 max-w-md text-sm text-zinc-400 md:text-base leading-relaxed">
+                            We work across <strong class="text-zinc-700  font-semibold">websites</strong>, <strong class="text-zinc-700  font-semibold">brand identity</strong>, <strong class="text-zinc-700  font-semibold">video editing</strong>, <strong class="text-zinc-700  font-semibold">graphic design</strong>, and <strong class="text-zinc-700  font-semibold">marketing campaigns</strong>. We scope to your goals, not a fixed menu.
+                        </p>
+                        <p class="mt-3 text-sm text-zinc-500 leading-relaxed">
+                            Drop us a message and we'll send you a clear, honest estimate within 24 hours.
+                        </p>
+
+                        <!-- service pills -->
+                        <div class="mt-6 flex flex-wrap gap-2">
+                            {["Websites", "Brand Identity", "Video Editing", "Graphic Design", "Marketing"].map((s) => (
+                                <span class="text-[0.6rem] font-bold tracking-[0.15em] uppercase text-zinc-400 border border-zinc-700 rounded-full px-3 py-1 hover:border-[#3185ff] hover:text-white transition-colors">
+                                    {s}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    <!-- Right: WhatsApp card — same dark card style as pricing cards -->
+                    <div class="wa-card group rounded-2xl border border-zinc-800 bg-black/60 p-8 shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition hover:-translate-y-2 hover:border-[#25d366] hover:shadow-[0_16px_40px_rgba(37,211,102,0.15)]">
+
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#25d366] mb-6">
+                            <svg viewBox="0 0 24 24" fill="white" class="h-6 w-6">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                        </div>
+
+                        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#25d366] mb-1">
+                            Ready to start?
+                        </p>
+                        <h4 class="text-2xl font-semibold text-white mb-3">
+                            Get a quote in 24 hours
+                        </h4>
+                        <p class="text-sm text-zinc-300 leading-relaxed mb-6">
+                            Tell us about your project on WhatsApp.
+                        </p>
+
+                        <a
+                            href="https://wa.me/919391700139?text=Hi%20Re.Dzinr!%20I%27d%20like%20to%20get%20a%20quote%20for%20my%20project."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="wa-btn inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#25d366] px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white shadow-[0_8px_24px_rgba(37,211,102,0.3)] transition hover:-translate-y-0.5 hover:bg-[#1ebe5d] hover:shadow-[0_14px_36px_rgba(37,211,102,0.45)]"
+                            data-cursor-hover>
+                            <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 shrink-0">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                            WhatsApp us
+                        </a>
+
+                        <p class="mt-3 text-center text-xs text-zinc-600">Usually replies within a few hours</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
-</section>
-		<!-- Pricing -->
-		<div id="pricing" class="mx-auto max-w-6xl space-y-10 px-6 md:px-10 lg:px-12 lg:space-y-14">
-			<div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-				<div>
-					<p class="text-xs font-semibold uppercase tracking-[0.25em] text-zinc-700">
-						Pricing
-					</p>
-					<h3 class="mt-3 font-display text-3xl text-zinc-900 md:text-4xl lg:text-5xl">
-						Pick a plan that fits your next launch.
-					</h3>
-					<p class="mt-3 max-w-xl text-sm text-zinc-600 md:text-base">
-						Indicative ranges in INR so you can gauge where your project sits. We’ll fine‑tune scope,
-						timelines and deliverables together.
-					</p>
-				</div>
-
-				<a
-					class="book-call-button inline-flex items-center justify-center rounded-full border border-white/20 bg-white text-sm font-semibold uppercase tracking-[0.18em] text-black shadow-[0_15px_40px_rgba(0,0,0,0.5)] transition hover:-translate-y-0.5 hover:border-[#3185ff] hover:bg-[#3185ff] hover:text-white px-6 py-3 whitespace-nowrap relative z-10"
-					href={translatePath("/contact/")}
-					data-cursor-hover>
-					Book a call
-				</a>
-			</div>
-
-			<div class="grid gap-6 md:grid-cols-3">
-				<!-- Starter -->
-				<div
-					class="pricing-card group relative overflow-hidden rounded-2xl border border-zinc-800 bg-black/60 p-6 shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition hover:-translate-y-2 hover:border-[#3185ff]">
-					<div class="relative space-y-4">
-						<p class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">
-							Starter
-						</p>
-						<h4 class="text-2xl font-semibold">Basic</h4>
-						<p class="text-sm text-zinc-300">
-							Perfect for early‑stage brands that need a sharp, single‑site presence to launch fast.
-						</p>
-						<p class="mt-4 text-3xl font-semibold">
-							<span class="text-base align-top text-zinc-400">From</span> ₹30,000+
-						</p>
-						<ul class="mt-4 space-y-2 text-sm text-zinc-200">
-							<li>• Website up-to 5 Custom Pages.</li>
-							<li>• Brand Logo + Social Media SEO.</li>
-							<li>• SEO-ready Structure.</li>
-							<li>• Digital marketing Roadmap for Brand.</li>
-						</ul>
-					</div>
-				</div>
-
-				<!-- Growth -->
-				<div
-					class="pricing-card group relative overflow-hidden rounded-2xl border border-[#3185ff] bg-[#0a1a2f]/90 p-6 shadow-[0_16px_45px_rgba(0,0,0,0.45)] transition hover:-translate-y-3">
-					<div class="relative space-y-4">
-						<p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/90">
-							<span class="h-5 w-5 rounded-full bg-white/20 text-center text-[10px] leading-5 text-white">★</span>
-							Most popular
-						</p>
-						<h4 class="text-2xl font-semibold text-white">Intermediate</h4>
-						<p class="text-sm text-white/90">
-							For growing brands that need storytelling, interactions and performance baked in.
-						</p>
-						<p class="mt-4 text-3xl font-semibold text-white">
-							<span class="text-base align-top text-white/70">From</span> ₹50,000+
-						</p>
-						<ul class="mt-4 space-y-2 text-sm text-white/90">
-							<li>• Website 6–10 custom pages & component system.</li>
-							<li>• Full Structured Content Marketing.</li>
-							<li>• Advanced motion & micro‑interactions.</li>
-							<li>• Activity focused UX & on‑page SEO.</li>
-						</ul>
-					</div>
-				</div>
-
-				<!-- Partner -->
-				<div
-					class="pricing-card group relative overflow-hidden rounded-2xl border border-zinc-800 bg-black/70 p-6 shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition hover:-translate-y-2 hover:border-[#fc6f14]">
-					<div class="relative space-y-4">
-						<p class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">
-							Partner
-						</p>
-						<h4 class="text-2xl font-semibold">Pro</h4>
-						<p class="text-sm text-zinc-300">
-							Ongoing design‑dev partnership for teams shipping features, campaigns or multiple brands.
-						</p>
-						<p class="mt-4 text-3xl font-semibold">
-							<span class="text-base align-top text-zinc-400">From</span> ₹80,000+
-						</p>
-						<ul class="mt-4 space-y-2 text-sm text-zinc-200">
-							<li>• Website 6–10 custom pages & component system.</li>
-							<li>• Full Structured Performance Marketing.</li>
-							<li>• Priority support & strategy check‑ins.</li>
-							<li>• Advanced motion & micro-interactions.</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </section>
 
 <script>
@@ -247,22 +222,20 @@ const translatePath = useTranslatedPath(lang);
 	gsap.registerPlugin(ScrollTrigger);
 
 	function init() {
-		const cards = gsap.utils.toArray<HTMLElement>(".pricing-card");
-
-		cards.forEach((card, index) => {
+		const card = document.querySelector<HTMLElement>(".wa-card");
+		if (card) {
 			gsap.from(card, {
 				y: 30,
 				opacity: 0,
-				duration: 0.5,
+				duration: 0.6,
 				ease: "power2.out",
-				delay: 0.08 * index,
 				scrollTrigger: {
 					trigger: card,
 					start: "top 80%",
 					toggleActions: "play none none reverse",
 				},
 			});
-		});
+		}
 	}
 
 	document.removeEventListener("DOMContentLoaded", init);

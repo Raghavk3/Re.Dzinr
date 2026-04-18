@@ -1,48 +1,344 @@
 ---
 import { getCollection } from "astro:content";
-import { Icon } from "astro-icon/components";
-import Title from "@components/global/Title.astro";
 import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 
-const allAuthors = (await getCollection("authors"))
-	.filter((author) => {
-		const [authorLang, ...slug] = author.slug.split("/");
-		return authorLang === lang;
-	})
-	.map((author) => {
-		const [authorLang, slug] = author.slug.split("/");
-
-		return {
-			...author,
-			slug: slug,
-		};
-	});
+const allAuthors = await getCollection("authors");
 ---
 
-<section>
-	<div class="mx-auto px-8 py-24 md:px-12 lg:pt-32 2xl:max-w-7xl">
-		<div>
-			<Title class="pb-10 pt-20 uppercase" title="Authors" subtitle="lorem ipsum" />
+<section class="about-section">
+
+	<!-- Noise texture overlay -->
+	<div class="noise" aria-hidden="true"></div>
+
+	<!-- Ambient glow blobs -->
+	<div class="blob blob-1" aria-hidden="true"></div>
+	<div class="blob blob-2" aria-hidden="true"></div>
+
+	<div class="container">
+
+		<!-- Header -->
+		<div class="header">
+			<p class="eyebrow">Our Story</p>
+			<h1 class="headline">
+				Built by students.<br />
+				<span class="accent">Driven by vision.</span>
+			</h1>
 		</div>
-		<div>
-			<ol class="mt-12 flex flex-col divide-y divide-zinc-800 py-8">
-				{
-					allAuthors.map((author) => (
-						<li class="w-full py-8 font-mono text-xl font-semibold text-zinc-800 hover:text-black md:text-2xl ">
-							<a href={translatePath(`/author/${author.slug}`)} class="flex w-full items-center justify-between">
-								{author.data.name}{" "}
-								<span class="ml-auto">
-									<Icon name="ic:baseline-arrow-right" width="30" />
+
+		<!-- Origin story -->
+		<div class="story">
+			<div class="story-line" aria-hidden="true"></div>
+			<div class="story-content">
+				<p class="story-text">
+					Re.Dzinr was born in the final year of our <strong>B.Tech</strong> — not from a boardroom,
+					but from a shared frustration: great ideas deserved better design, and great
+					design deserved a smarter web.
+				</p>
+				<p class="story-text">
+					Jatin brought a sharp eye for aesthetics and brand identity. Raghava brought
+					the technical architecture to make it real. Together, we realised we weren't
+					just classmates — we were each other's missing half.
+				</p>
+				<p class="story-text">
+					Our vision is simple: <em>design and development should never feel like two
+					separate worlds.</em> We build end-to-end digital experiences where every pixel
+					has purpose and every line of code serves the story.
+				</p>
+			</div>
+		</div>
+
+		<!-- Founder cards -->
+		<div class="founders">
+			{
+				allAuthors.map((author) => {
+					const slug = author.slug.includes("/") ? author.slug.split("/")[1] : author.slug;
+					return (
+						<a href={translatePath(`/author/${slug}`)} class="founder-card">
+							<div class="card-image-wrap">
+								{author.data.image ? (
+									<img
+										src={author.data.image}
+										alt={author.data.name}
+										class="card-image"
+									/>
+								) : (
+									<div class="card-image-fallback">
+										{author.data.name.charAt(0)}
+									</div>
+								)}
+								<div class="card-overlay" />
+							</div>
+
+							<div class="card-body">
+								<p class="card-role">{author.data.role ?? "Co-founder"}</p>
+								<h2 class="card-name">{author.data.name}</h2>
+								{author.data.bio && (
+									<p class="card-bio">{author.data.bio}</p>
+								)}
+								<span class="card-cta">
+									View profile
+									<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M5 12h14M12 5l7 7-7 7"/>
+									</svg>
 								</span>
-							</a>
-						</li>
-					))
-				}
-			</ol>
+							</div>
+						</a>
+					);
+				})
+			}
 		</div>
+
 	</div>
 </section>
+
+<style>
+	/* ── Base ─────────────────────────────────────────── */
+	.about-section {
+		position: relative;
+		background: #ffffff;
+		min-height: 100vh;
+		overflow: hidden;
+		padding: 0 0 8rem;
+	}
+
+	.noise {
+		position: absolute;
+		inset: 0;
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+		opacity: 0.025;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	/* ── Ambient blobs ────────────────────────────────── */
+	.blob {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(120px);
+		pointer-events: none;
+		z-index: 0;
+	}
+	.blob-1 {
+		width: 600px;
+		height: 600px;
+		background: radial-gradient(circle, rgba(49, 133, 255, 0.08) 0%, transparent 70%);
+		top: -200px;
+		right: -100px;
+	}
+	.blob-2 {
+		width: 500px;
+		height: 500px;
+		background: radial-gradient(circle, rgba(252, 111, 20, 0.06) 0%, transparent 70%);
+		bottom: 0;
+		left: -150px;
+	}
+
+	/* ── Layout ───────────────────────────────────────── */
+	.container {
+		position: relative;
+		z-index: 1;
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 6rem 2rem 0;
+	}
+
+	/* ── Header ───────────────────────────────────────── */
+	.header {
+		margin-bottom: 5rem;
+	}
+
+	.eyebrow {
+		font-family: 'Courier New', monospace;
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		color: #fc6f14;
+		margin-bottom: 1.25rem;
+	}
+
+	.headline {
+		font-size: clamp(2.8rem, 7vw, 5.5rem);
+		font-weight: 800;
+		line-height: 1.05;
+		color: #0a0a0a;
+		letter-spacing: -0.03em;
+		font-family: Georgia, 'Times New Roman', serif;
+	}
+
+	.accent {
+		color: #3185ff;
+		font-style: italic;
+	}
+
+	/* ── Story ────────────────────────────────────────── */
+	.story {
+		display: grid;
+		grid-template-columns: 2px 1fr;
+		gap: 0 3rem;
+		margin-bottom: 6rem;
+		max-width: 720px;
+	}
+
+	.story-line {
+		background: linear-gradient(to bottom, #3185ff, transparent);
+		border-radius: 2px;
+	}
+
+	.story-content {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.story-text {
+		font-size: 1.05rem;
+		line-height: 1.85;
+		color: #444444;
+		margin: 0;
+	}
+
+	.story-text strong {
+		color: #0a0a0a;
+		font-weight: 600;
+	}
+
+	.story-text em {
+		color: #3185ff;
+		font-style: italic;
+	}
+
+	/* ── Founder grid ─────────────────────────────────── */
+	.founders {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	/* ── Founder card ─────────────────────────────────── */
+	.founder-card {
+		display: block;
+		text-decoration: none;
+		border-radius: 16px;
+		overflow: hidden;
+		background: #f8f8f8;
+		border: 1px solid #e8e8e8;
+		transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+	}
+
+	.founder-card:hover {
+		transform: translateY(-6px);
+		border-color: #3185ff;
+		box-shadow: 0 24px 60px rgba(49, 133, 255, 0.12), 0 0 0 1px rgba(49, 133, 255, 0.1);
+	}
+
+	.card-image-wrap {
+		position: relative;
+		aspect-ratio: 3 / 4;
+		overflow: hidden;
+	}
+
+	.card-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+		transition: transform 0.5s ease;
+		display: block;
+	}
+
+	.founder-card:hover .card-image {
+		transform: scale(1.04);
+	}
+
+	.card-image-fallback {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #efefef;
+		font-size: 5rem;
+		font-weight: 700;
+		color: #cccccc;
+		font-family: Georgia, serif;
+	}
+
+	.card-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.05) 50%, transparent 100%);
+	}
+
+	.card-body {
+		padding: 1.75rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.card-role {
+		font-family: 'Courier New', monospace;
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.25em;
+		text-transform: uppercase;
+		color: #fc6f14;
+		margin: 0;
+	}
+
+	.card-name {
+		font-size: 1.6rem;
+		font-weight: 700;
+		color: #0a0a0a;
+		letter-spacing: -0.02em;
+		font-family: Georgia, serif;
+		margin: 0;
+	}
+
+	.card-bio {
+		font-size: 0.875rem;
+		line-height: 1.7;
+		color: #666666;
+		margin: 0.25rem 0 0.5rem;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.card-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-family: 'Courier New', monospace;
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: #aaaaaa;
+		margin-top: 0.5rem;
+		transition: color 0.2s ease;
+	}
+
+	.founder-card:hover .card-cta {
+		color: #3185ff;
+	}
+
+	/* ── Responsive ───────────────────────────────────── */
+	@media (max-width: 640px) {
+		.container {
+			padding: 4rem 1.25rem 0;
+		}
+		.story {
+			grid-template-columns: 1fr;
+		}
+		.story-line {
+			display: none;
+		}
+	}
+</style>
