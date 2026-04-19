@@ -8,9 +8,7 @@ import vercel from "@astrojs/vercel/serverless";
 // https://astro.build/config
 export default defineConfig({
 	 output: "server",
-	   adapter: vercel({
-    nodeVersion: "20",
-  }),
+	   adapter: vercel(),
 	vite: {
 		server: {
 			watch: {
